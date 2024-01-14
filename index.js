@@ -1,5 +1,8 @@
 //practicing action in redux
 
+const redux = require("redux");
+const createStore = redux.createStore;
+
 const BUY_CAKE = "BUY_CAKE";
 
 function buyCake() {
@@ -20,9 +23,20 @@ const reducer = (state = initialState, action) => {
     case BUY_CAKE:
       return {
         ...state,
-        numOfCake: state.initialState - 1,
+        numOfCake: state.numOfCake - 1,
       };
     default:
       return state;
   }
 };
+
+const store = createStore(reducer);
+console.log("Initial state", store.getState());
+const unSubscribe = store.subscribe(() => {
+  console.log("Updated State", store.getState());
+});
+
+store.dispatch(buyCake());
+store.dispatch(buyCake());
+store.dispatch(buyCake());
+unSubscribe();
