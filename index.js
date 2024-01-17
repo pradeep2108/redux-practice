@@ -1,8 +1,10 @@
 //practicing action in redux
 
 const redux = require("redux");
+const reduxLogger = require("redux-logger");
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
+const logger = reduxLogger.createLogger();
 
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAM";
@@ -98,3 +100,8 @@ store.dispatch(buyIceCream());
 store.dispatch(buyCake());
 store.dispatch(buyCake());
 unSubscribe();
+
+// Middleware
+// is the suggested way to extend redux with custom functionality
+// provided third party extension point between dispatching an action and the moment it reaches the reducer
+// Use middleware for loggin, crash reporting, performing asynchronous tasks etc
