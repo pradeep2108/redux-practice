@@ -4,6 +4,7 @@ const redux = require("redux");
 const reduxLogger = require("redux-logger");
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;
 const logger = reduxLogger.createLogger();
 
 const BUY_CAKE = "BUY_CAKE";
@@ -79,7 +80,7 @@ const iceCreamReducer = (state = initialIceCreamState, action) => {
 };
 
 // the convention is to call the combination of all your reducers as the root reducer
-// to access cake specify state.cake.numberOfIceCreams
+// to access cake specify state.cake.numberOfCake
 // cake and iceCream here correspond to the key we specified while combining the two reducers
 // when we dipatch the action both reducers receive the action whereas one respond others ignores it
 const rootReducer = combineReducers({
@@ -87,10 +88,10 @@ const rootReducer = combineReducers({
   iceCream: iceCreamReducer,
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 console.log("Initial state", store.getState());
 const unSubscribe = store.subscribe(() => {
-  console.log("Updated State", store.getState());
+  // console.log("Updated State", store.getState());
 });
 
 store.dispatch(buyCake());
